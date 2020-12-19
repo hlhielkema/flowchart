@@ -5,7 +5,7 @@ Open the [LIVE DEMO](https://hlhielkema.github.io/flowchart/) to try it yourself
 ## Directory structure
 
 - dist - *compiled library js and css*
-- docs - *Demo website*
+- demo - *Demo website*
 - node_modules - *Node.js modules installed by NPM.*
 - src - *Library source files*
 
