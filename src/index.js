@@ -1,4 +1,4 @@
-import List from "./scripts/List.js";
-import "./styles/list.min.css";
+import Flowchart from "./scripts/Flowchart.js";
+import "./styles/flowchart.min.css";
 
-window.List = List;
+window.Flowchart = Flowchart;

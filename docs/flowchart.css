@@ -1,2 +1,2 @@
-body{color:#000}
+.flowchart{position:relative;float:left;width:100%;height:100%}.flowchart .node-container{float:left;width:100%;height:100%}.flowchart .node-container .node{position:absolute;background:#ccc;border:solid 2px #999;box-sizing:border-box;height:80px;width:200px}
 

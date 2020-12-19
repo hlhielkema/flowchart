@@ -1,1 +1,4 @@
-console.log('...demo code here...')
+
+var flowchart = new Flowchart('.flowchar-container');
+flowchart.init();
+

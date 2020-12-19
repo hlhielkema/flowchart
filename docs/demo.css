@@ -2,19 +2,13 @@ body, html {
     background: #fff;    
     font-family: 'Roboto', sans-serif;
     margin: 0;
+    float:left;
+    height: 100%;
+    width: 100%;
 }
 
-.container {
-    margin: 0 auto;
-    width: calc(100% - 32px);
-    max-width: 900px;    
-}
-
-h1 {
-    color:#00473e;
-    margin-top: 36px;
-}
-
-p {
-    color: #475d5b;
+.flowchar-container {
+    float:left;
+    height: 100%;
+    width: 100%;
 }
