@@ -10,5 +10,5 @@ function copyFile(from, to) {
     });
 }
 
-copyFile('dist/flowchart.js', 'demo/flowchart.js');
-copyFile('dist/flowchart.css', 'demo/flowchart.css');
+copyFile('dist/flowchart.js', 'docs/flowchart.js');
+copyFile('dist/flowchart.css', 'docs/flowchart.css');
