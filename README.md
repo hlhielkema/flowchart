@@ -1,14 +1,6 @@
-# JavaScript Library Repository Template
-Repository template for a JavaScript Library compiled with WebPack.
+# Flowchart JavaScript Library
 
-Open the [LIVE DEMO](https://hlhielkema.github.io/__libname__/) to try it yourself.
-
-## How to use the template
-- Create a new **Git repository**.
-- Copy all contents of this repository to the new repository.
-- Install NPM packages: `npm install`.
-- Replace `__libname__` by the name of the lib.
-- Enable **GitHub pages** for the `\docs` directory.
+Open the [LIVE DEMO](https://hlhielkema.github.io/flowchart/) to try it yourself.
 
 ## Directory structure
 
