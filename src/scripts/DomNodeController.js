@@ -8,7 +8,10 @@ DomNodeController.prototype.render = function() {
     var element = document.createElement('div');
     element.classList.add('node');
     
-    element.innerText = this.node.title;
+    // Render and add information elements
+    element.appendChild(this.renderInfo());
+
+    // Set initial position
     element.style.top = this.node.y + 'px';
     element.style.left = this.node.x + 'px';
     
@@ -22,8 +25,26 @@ DomNodeController.prototype.render = function() {
     return element;
 }
 
-DomNodeController.prototype.applyPosition = function() {
+DomNodeController.prototype.renderInfo = function() {
+    // Create elements
+    var element = document.createElement('div');
+    var titleElement = document.createElement('div');
+    var descriptionElement = document.createElement('div');
 
+    // Add classes
+    element.classList.add('info');
+    titleElement.classList.add('title');
+    descriptionElement.classList.add('description');
+
+    // Combine elements
+    element.appendChild(titleElement);
+    element.appendChild(descriptionElement);
+
+    // Set elements text
+    titleElement.innerText = this.node.title;
+    descriptionElement.innerText = this.node.description;
+
+    return element;
 }
 
 // Apply the position on the element
