@@ -1,8 +1,9 @@
 import MouseDragDropTracker from './util/MouseDragDropTracker';
 import DomNodeController from './DomNodeController';
 
-function DomController(parentContainer, nodes) {
-    this.parentContainer = parentContainer;
+function DomController(parent, nodes) {
+    this.parent = parent;
+    this.parentContainer = parent.container;
     this.nodes = nodes;
     this.container = null;
     this.dragDropEngine = new MouseDragDropTracker();
@@ -30,6 +31,10 @@ DomController.prototype.render = function() {
         // Add the node element to the container
         this.container.appendChild(nodeElement);
     }
+}
+
+DomController.prototype.onNodePositionChanged = function() {
+    this.parent.onNodePositionChanged();
 }
 
 

@@ -52,6 +52,8 @@ DomNodeController.prototype.applyPosition = function applyPosition() {
     // Set the position properties
     this.element.style.top = `${this.node.y}px`;
     this.element.style.left = `${this.node.x}px`;
+
+    this.parent.onNodePositionChanged();
 };
 
 // Start the drag/drop logic(from mousedown event)

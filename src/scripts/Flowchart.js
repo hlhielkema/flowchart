@@ -11,7 +11,7 @@ function Flowchart(selector) {
 
     this.nodes = new NodeCollection();
     this.canvas = new CanvasController(this.container, this.nodes);
-    this.dom = new DomController(this.container, this.nodes);
+    this.dom = new DomController(this, this.nodes);
 }
 
 Flowchart.prototype.init = function () {
@@ -25,6 +25,10 @@ Flowchart.prototype.init = function () {
 Flowchart.prototype.render = function() {
     this.canvas.render();
     this.dom.render();
+}
+
+Flowchart.prototype.onNodePositionChanged = function() {
+    this.canvas.render();
 }
 
 export default Flowchart;
