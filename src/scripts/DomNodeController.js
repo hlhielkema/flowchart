@@ -53,6 +53,7 @@ DomNodeController.prototype.applyPosition = function applyPosition() {
     this.element.style.top = `${this.node.y}px`;
     this.element.style.left = `${this.node.x}px`;
 
+    // Signal to the parent DOM controller that the position of a node changed
     this.parent.onNodePositionChanged();
 };
 

@@ -1,3 +1,5 @@
+
+// TODO: Move to one location
 const NODE_ELEMENT_HEIGHT = 74;
 const NODE_ELEMENT_WIDHT = 260;
 
