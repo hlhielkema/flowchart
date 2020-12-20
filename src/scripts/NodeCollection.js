@@ -16,36 +16,59 @@ NodeCollection.prototype.addTestData = function() {
         id: 'a',
         title: "Hello world A",
         description: "Question",
-        x: 50,
-        y: 50,
-        connections: [ ]
+        x: 450,
+        y: 200,
+        connections: [
+            {
+                'id': 'b',
+                'label': 'yes'
+            },
+            {
+                'id': 'c',
+                'label': 'no'
+            },        
+        ]
     });
 
     this.items.push({
         id: 'b',
         title: "Hello world B",
         description: "Question",
-        x: 500,
-        y: 50,
-        connections: [ ]        
+        x: 200,
+        y: 500,
+        connections: [
+            {
+                'id': 'd',
+                'label': 'yes'
+            },
+            {
+                'id': 'c',
+                'label': 'no'
+            },        
+        ]   
     });
 
     this.items.push({
         id: 'c',
         title: "Hello world C",
         description: "Question",
-        x: 500,
+        x: 700,
         y: 500,
         connections: [
             {
-                'id': 'a',
+                'id': 'd',
                 'label': 'yes'
-            },
-            {
-                'id': 'b',
-                'label': 'no'
-            }
+            },             
         ]
+    });
+
+    this.items.push({
+        id: 'd',
+        title: "Hello world D",
+        description: "Question",
+        x: 450,
+        y: 800,
+        connections: [ ]
     });
 }
 

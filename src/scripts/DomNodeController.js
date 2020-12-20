@@ -2,14 +2,28 @@ function DomNodeController(parent, node) {
     this.parent = parent;
     this.node = node;
     this.element = null;
+    this.actions = [
+        {
+            title: 'Edit'
+        },
+        {
+            title: 'Link'
+        }
+    ]
 }
 
 DomNodeController.prototype.render = function() {
     var element = document.createElement('div');
     element.classList.add('node');
     
+    const innerElement = document.createElement('div');
+    innerElement.classList.add('inner');
+    element.appendChild(innerElement);
+
+    innerElement.appendChild(this.renderActions());
+
     // Render and add information elements
-    element.appendChild(this.renderInfo());
+    innerElement.appendChild(this.renderInfo());
 
     // Set initial position
     element.style.top = this.node.y + 'px';
@@ -45,6 +59,19 @@ DomNodeController.prototype.renderInfo = function() {
     descriptionElement.innerText = this.node.description;
 
     return element;
+}
+
+DomNodeController.prototype.renderActions = function() {
+    const actionsElement = document.createElement('div');
+    actionsElement.classList.add('actions');
+
+    for (var i = 0; i < this.actions.length; i++) {
+        var actionElement = document.createElement('div');
+        actionElement.innerText = this.actions[i].title;
+        actionsElement.appendChild(actionElement);
+    }
+
+    return actionsElement;
 }
 
 // Apply the position on the element

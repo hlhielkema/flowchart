@@ -1,13 +1,13 @@
 import MouseDragDropTracker from './util/MouseDragDropTracker';
 import DomNodeController from './DomNodeController';
-import DomConnectionController from './DomConnectionController';
+import DomLabelController from './DomLabelController';
 
 function DomController(parent, nodes) {
     this.parent = parent;
     this.parentContainer = parent.container;
     this.nodes = nodes;
     this.nodeControllers = null;
-    this.connectionControllers = null;
+    this.labelControllers = null;
     this.container = null;
     this.dragDropEngine = new MouseDragDropTracker();
 }
@@ -27,8 +27,8 @@ DomController.prototype.createNodeControllers = function() {
     }
 }
 
-DomController.prototype.createConnectionControllers = function() {
-    this.connectionControllers = [];
+DomController.prototype.createLabelControllers = function() {
+    this.labelControllers = [];
     const nodes = this.nodes.items;
     for (var i = 0; i < nodes.length; i++) {
         for (var t = 0; t < nodes[i].connections.length; t++) {
@@ -36,7 +36,7 @@ DomController.prototype.createConnectionControllers = function() {
             var to = this.nodes.getForId(nodes[i].connections[t].id);
             var label = nodes[i].connections[t].label;
             
-            this.connectionControllers.push(new DomConnectionController(this, from, to, label));
+            this.labelControllers.push(new DomLabelController(this, from, to, label));
         }
     }
 }
@@ -47,7 +47,7 @@ DomController.prototype.render = function() {
 
     // Create the controllers
     this.createNodeControllers();
-    this.createConnectionControllers();
+    this.createLabelControllers();
 
     // Loop through the nodes    
     for (var i = 0; i < this.nodeControllers.length; i++) {                    
@@ -58,21 +58,21 @@ DomController.prototype.render = function() {
         this.container.appendChild(nodeElement);
     }
 
-    // Loop through the connections    
-    for (var i = 0; i < this.connectionControllers.length; i++) {                    
-        // Render the connection element    
-        var connectionElement = this.connectionControllers[i].render();
+    // Loop through the labels    
+    for (var i = 0; i < this.labelControllers.length; i++) {                    
+        // Render the label element    
+        var labelElement = this.labelControllers[i].render();
 
-        // Add the connection element to the container
-        this.container.appendChild(connectionElement);
+        // Add the label element to the container
+        this.container.appendChild(labelElement);
     }
 }
 
 DomController.prototype.updateLabelPositions = function() {
- // Loop through the connections    
- for (var i = 0; i < this.connectionControllers.length; i++) {                    
+ // Loop through the labels    
+ for (var i = 0; i < this.labelControllers.length; i++) {                    
      // Update the position
-    this.connectionControllers[i].updatePosition();
+    this.labelControllers[i].updatePosition();
 }
 }
 

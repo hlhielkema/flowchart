@@ -38,6 +38,21 @@
                     color: #999;
                 }
             }
+
+            .inner {
+                position: relative;
+                float:left;
+                width: 100%;  
+
+                .actions {
+                    top: -50px;
+                    left: 35px;
+                }
+            }
+
+            &:hover .inner .actions {
+                display: block;
+            }
         }
 
         .label {
@@ -51,6 +66,50 @@
             font-size: 12px;
             border-radius: 100px;   
             cursor: pointer;
+            .inner {
+                position: relative;
+                float:left;
+                width: 100%;       
+                
+                .actions {
+                    top: -58px;
+                    left: -53px;
+                }
+            }
+
+            &:hover .inner .actions {
+                display: block;
+            }
+        }
+
+        .actions {
+            display: none;
+            text-align: center;
+            font-size: 12px;
+            position: absolute;
+            background: #e4e4e4;
+            border-radius: 100px;
+            width: 200px;
+            height: 32px;
+            color: #000;
+           
+            div {
+                float: left;
+                line-height: 32px;
+                width: 50%;
+                cursor: pointer;
+            }
+            &::before {
+                content: ' ';
+                width: 14px;
+                height: 14px;
+                background: #e4e4e4;
+                position: absolute;
+                left: calc(50% - 14px);
+                top: 24px;
+                transform: rotate(45deg);
+                border-top-left-radius: 100px;                    
+            }
         }
     }    
 }
