@@ -1,8 +1,4 @@
-// TODO: Move to one location
-const NODE_ELEMENT_HEIGHT = 74;
-const NODE_ELEMENT_WIDHT = 260;
-const LABEL_ELEMENT_HEIGHT = 34;
-const LABEL_ELEMENT_WIDHT = 100;
+import { NODE_ELEMENT_HEIGHT, NODE_ELEMENT_WIDTH, LABEL_ELEMENT_HEIGHT, LABEL_ELEMENT_WIDTH } from './Constants';
 
 function DomLabelController(parent, from, to, label) {
     this.parent = parent;
@@ -10,15 +6,7 @@ function DomLabelController(parent, from, to, label) {
     this.to = to;
     this.label = label;
     this.element = null;
-    this.selected = false;
-    this.actions = [
-        {
-            title: 'Rename'
-        },
-        {
-            title: 'Remove'
-        }
-    ]
+    this.selected = false;  
 }
 
 DomLabelController.prototype.render = function() {
@@ -31,7 +19,6 @@ DomLabelController.prototype.render = function() {
 
     innerElement.appendChild(this.renderActions());
     element.appendChild(innerElement);
-
 
     const position = this.getLineCenter();
 
@@ -73,7 +60,6 @@ DomLabelController.prototype.renderActions = function() {
 }
 
 DomLabelController.prototype.updatePosition = function() {
-
     var position = this.getLineCenter();
 
     this.element.style.top = position.y + 'px';
@@ -82,7 +68,7 @@ DomLabelController.prototype.updatePosition = function() {
 
 DomLabelController.prototype.getLineCenter = function() {
     return {
-        x: (this.from.x + this.to.x) / 2 + (NODE_ELEMENT_WIDHT / 2) - (LABEL_ELEMENT_WIDHT / 2),
+        x: (this.from.x + this.to.x) / 2 + (NODE_ELEMENT_WIDTH / 2) - (LABEL_ELEMENT_WIDTH / 2),
         y: (this.from.y + this.to.y) / 2 + (NODE_ELEMENT_HEIGHT / 2) - (LABEL_ELEMENT_HEIGHT / 2),
     }
 }
