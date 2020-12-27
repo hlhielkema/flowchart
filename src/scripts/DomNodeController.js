@@ -2,18 +2,11 @@ function DomNodeController(parent, node) {
     this.parent = parent;
     this.node = node;
     this.element = null;
-    this.actions = [
-        {
-            title: 'Edit'
-        },
-        {
-            title: 'Link'
-        }
-    ]
+    this.selected = false;
 }
 
 DomNodeController.prototype.render = function() {
-    var element = document.createElement('div');
+    const element = document.createElement('div');
     element.classList.add('node');
     
     const innerElement = document.createElement('div');
@@ -41,9 +34,9 @@ DomNodeController.prototype.render = function() {
 
 DomNodeController.prototype.renderInfo = function() {
     // Create elements
-    var element = document.createElement('div');
-    var titleElement = document.createElement('div');
-    var descriptionElement = document.createElement('div');
+    const element = document.createElement('div');
+    const titleElement = document.createElement('div');
+    const descriptionElement = document.createElement('div');
 
     // Add classes
     element.classList.add('info');
@@ -58,18 +51,34 @@ DomNodeController.prototype.renderInfo = function() {
     titleElement.innerText = this.node.title;
     descriptionElement.innerText = this.node.description;
 
+    const self = this;
+    element.addEventListener('click', function() {
+        self.onNodeSelected();
+    });
+
     return element;
 }
 
 DomNodeController.prototype.renderActions = function() {
-    const actionsElement = document.createElement('div');
+    const actionsElement = document.createElement('div');        
+    const editElement = document.createElement('div');
+    const linkElement = document.createElement('div');
+
     actionsElement.classList.add('actions');
 
-    for (var i = 0; i < this.actions.length; i++) {
-        var actionElement = document.createElement('div');
-        actionElement.innerText = this.actions[i].title;
-        actionsElement.appendChild(actionElement);
-    }
+    editElement.innerText = 'Edit';    
+    linkElement.innerText = 'Link';
+    
+    actionsElement.appendChild(editElement);
+    actionsElement.appendChild(linkElement);
+
+    const self = this;
+    editElement.addEventListener('click', function() {
+        self.onEditNode();
+    });
+    linkElement.addEventListener('click', function() {
+        self.onLinkNode();
+    });
 
     return actionsElement;
 }
@@ -84,13 +93,28 @@ DomNodeController.prototype.applyPosition = function applyPosition() {
     this.parent.onNodePositionChanged();
 };
 
+DomNodeController.prototype.applySelected = function applySelected() {
+    var hasClass = this.element.classList.contains('selected');
+    if (hasClass != this.selected) {
+        if (this.selected) {
+            this.element.classList.add('selected');
+        }
+        else {
+            this.element.classList.remove('selected');
+        }
+    }
+}
+
 // Start the drag/drop logic(from mousedown event)
 DomNodeController.prototype.startDragDrop = function startDragDrop(e) {
     const self = this;
     this.parent.dragDropEngine.start(e, {
         init(session) {
             // Store the initial tile position
-            session.setInitialPosition(self.node.x, self.node.y);
+            session.setInitialPosition(self.node.x, self.node.y);  
+            
+            // Ensure that the node is selected
+            self.onNodeSelected();
         },
         transform(session, dx, dy, x, y, first, completed) {
             // First transform
@@ -110,5 +134,27 @@ DomNodeController.prototype.startDragDrop = function startDragDrop(e) {
         },
     });
 };
+
+DomNodeController.prototype.getNodeId = function getNodeId() {
+    return this.node.id;
+}
+
+DomNodeController.prototype.onEditNode = function onEditNode() {
+    this.parent.onEditNode(this);
+}
+
+DomNodeController.prototype.onLinkNode = function onLinkNode() {
+    this.parent.onLinkNode(this);
+}
+
+DomNodeController.prototype.onNodeSelected = function onNodeSelected() {
+   if (!this.selected) {
+        this.selected = true;
+        this.applySelected();
+        if (this.selected) {
+            this.parent.onNodeSelected(this);
+        }
+    }
+}
 
 export default DomNodeController;

@@ -81,5 +81,56 @@ DomController.prototype.onNodePositionChanged = function() {
     this.parent.onNodePositionChanged();
 }
 
+DomController.prototype.onLabelSelected = function onLabelSelected(selectLabel) {
+    // Loop through the nodes    
+    for (var i = 0; i < this.nodeControllers.length; i++) {                    
+        const nodeController = this.nodeControllers[i];
+        nodeController.selected = false;
+        nodeController.applySelected();
+    }
+
+    // Loop through the labels
+    for (var j = 0; j < this.labelControllers.length; j++) {
+        const labelController = this.labelControllers[j];
+        if (labelController !== selectLabel) {
+            labelController.selected = false;
+            labelController.applySelected();
+        }
+    }
+}
+
+DomController.prototype.onNodeSelected = function onNodeSelected(selectedNode) {
+    // Loop through the nodes    
+    for (var i = 0; i < this.nodeControllers.length; i++) {                    
+        const nodeController = this.nodeControllers[i];
+        if (nodeController !== selectedNode) {
+            nodeController.selected = false;
+            nodeController.applySelected();
+        }
+    }
+
+    // Loop through the labels
+    for (var j = 0; j < this.labelControllers.length; j++) {
+        const labelController = this.labelControllers[j];
+        labelController.selected = false;
+        labelController.applySelected();
+    }
+}
+
+DomController.prototype.onEditNode = function onEditNode(nodeController) {
+    this.parent.onEditNode(nodeController.getNodeId());
+}
+
+DomController.prototype.onLinkNode = function onLinkNode(nodeController) {
+    this.parent.onLinkNode(nodeController.getNodeId());
+}
+
+DomController.prototype.onRenameLabel = function onRenameLabel(from, to) {
+    this.parent.onRenameLabel(from, to);
+}
+
+DomController.prototype.onRemoveConnection = function onRemoveConnection(from, to) {
+    this.parent.onRemoveConnection(from, to);
+}
 
 export default DomController;

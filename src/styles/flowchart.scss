@@ -50,8 +50,11 @@
                 }
             }
 
-            &:hover .inner .actions {
-                display: block;
+            &.selected {
+                border-color:orange;
+                .inner .actions {
+                    display: block;
+                }
             }
         }
 
@@ -77,8 +80,11 @@
                 }
             }
 
-            &:hover .inner .actions {
-                display: block;
+            &.selected {
+                border-color:orange;
+                .inner .actions {
+                    display: block;
+                }
             }
         }
 

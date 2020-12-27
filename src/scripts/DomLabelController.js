@@ -10,6 +10,7 @@ function DomLabelController(parent, from, to, label) {
     this.to = to;
     this.label = label;
     this.element = null;
+    this.selected = false;
     this.actions = [
         {
             title: 'Rename'
@@ -38,19 +39,35 @@ DomLabelController.prototype.render = function() {
     element.style.top = position.y + 'px';
     element.style.left = position.x + 'px';
 
+    const self = this;
+    element.addEventListener('click', function() {
+        self.onLabelSelected();
+    });
+
     this.element = element;
     return element;
 }
 
 DomLabelController.prototype.renderActions = function() {
     const actionsElement = document.createElement('div');
+    const renameElement = document.createElement('div');
+    const removeElement = document.createElement('div');
+
     actionsElement.classList.add('actions');
 
-    for (var i = 0; i < this.actions.length; i++) {
-        var actionElement = document.createElement('div');
-        actionElement.innerText = this.actions[i].title;
-        actionsElement.appendChild(actionElement);
-    }
+    renameElement.innerText = 'Rename';
+    removeElement.innerText = 'Remove';
+
+    actionsElement.appendChild(renameElement);
+    actionsElement.appendChild(removeElement);
+
+    const self = this;
+    renameElement.addEventListener('click', function() {
+        self.onRenameLabel();
+    });
+    removeElement.addEventListener('click', function() {
+        self.onRemoveConnection();
+    });
 
     return actionsElement;
 }
@@ -69,5 +86,33 @@ DomLabelController.prototype.getLineCenter = function() {
         y: (this.from.y + this.to.y) / 2 + (NODE_ELEMENT_HEIGHT / 2) - (LABEL_ELEMENT_HEIGHT / 2),
     }
 }
+
+DomLabelController.prototype.applySelected = function applySelected() {
+    var hasClass = this.element.classList.contains('selected');
+    if (hasClass != this.selected) {
+        if (this.selected) {
+            this.element.classList.add('selected');
+        }
+        else {
+            this.element.classList.remove('selected');
+        }
+    }
+}
+
+DomLabelController.prototype.onRenameLabel = function onRenameLabel() {
+    this.parent.onRenameLabel(this.from, this.to);
+}
+
+DomLabelController.prototype.onRemoveConnection = function onRemoveConnection() {
+    this.parent.onRemoveConnection(this.from, this.to);
+}
+
+DomLabelController.prototype.onLabelSelected = function onLabelSelected() {
+    if (!this.selected) {
+        this.selected = true;
+        this.applySelected();
+        this.parent.onLabelSelected(this);
+    }
+ }
 
 export default DomLabelController;

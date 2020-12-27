@@ -31,4 +31,20 @@ Flowchart.prototype.onNodePositionChanged = function() {
     this.canvas.render();
 }
 
+Flowchart.prototype.onRenameLabel = function(from, to) {
+    alert('rename label: ' + from.id + '->' + to.id);
+}
+
+Flowchart.prototype.onRemoveConnection = function(from, to) {
+    alert('remove connection: ' + from.id + '->' + to.id);
+}
+
+Flowchart.prototype.onEditNode = function(nodeId) {
+    alert('edit node: ' + nodeId);
+}
+
+Flowchart.prototype.onLinkNode = function(nodeId) {
+    alert('link node: ' + nodeId);
+}
+
 export default Flowchart;
