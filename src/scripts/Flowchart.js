@@ -13,13 +13,17 @@ function Flowchart(selector) {
     this.canvas = new CanvasController(this.container, this.nodes);
     this.dom = new DomController(this, this.nodes);
 
-    // Create default rename handler
-    this.renameLabelHandler = function(currentName, rename) {
-        var newName = prompt('Enter a new name', currentName);
-        if (newName !== null) {
-            rename(newName);
-        }
-    }    
+    // Handlers
+    this.editNodeHandler = null; // function(node : object)
+    this.renameLabelHandler = null; // function(currentName : string, rename : function(name : string)) { ... };
+}
+
+Flowchart.prototype.setEditNodeHandler = function setEditNodeHandler(handler) {
+    this.editNodeHandler = handler;
+}
+
+Flowchart.prototype.setRenameLabelHandler = function setRenameLabelHandler(handler) {
+    this.renameLabelHandler = handler;
 }
 
 Flowchart.prototype.init = function () {
@@ -69,12 +73,14 @@ Flowchart.prototype.onRemoveConnection = function(from, to) {
     this.render();
 }
 
-Flowchart.prototype.onEditNode = function(nodeId) {
-    alert('edit node: ' + nodeId);
+Flowchart.prototype.onEditNode = function(node) {
+    if (this.editNodeHandler !== null) {
+        this.editNodeHandler(node);
+    }
 }
 
-Flowchart.prototype.onLinkNode = function(nodeId) {
-    alert('link node: ' + nodeId);
+Flowchart.prototype.onLinkNode = function(node) {
+    alert('link node: ' + node.id);
 }
 
 export default Flowchart;

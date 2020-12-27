@@ -118,11 +118,11 @@ DomController.prototype.onNodeSelected = function onNodeSelected(selectedNode) {
 }
 
 DomController.prototype.onEditNode = function onEditNode(nodeController) {
-    this.parent.onEditNode(nodeController.getNodeId());
+    this.parent.onEditNode(nodeController.node);
 }
 
 DomController.prototype.onLinkNode = function onLinkNode(nodeController) {
-    this.parent.onLinkNode(nodeController.getNodeId());
+    this.parent.onLinkNode(nodeController.node);
 }
 
 DomController.prototype.onRenameLabel = function onRenameLabel(from, to) {
