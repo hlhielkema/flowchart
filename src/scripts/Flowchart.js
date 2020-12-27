@@ -1,6 +1,14 @@
 import CanvasController from './CanvasController';
 import DomController from './DomController';
 
+// TODO:
+// - Prevent selecting invalid node links.
+// - Allow users to deselect nodes/labels.
+// - Allow custom handlers for the linking process.
+// - Create optimal positions for node relations with one click.
+// - Prevent selecting the text in nodes
+// - Allow setting a start node
+
 function Flowchart(selector) {
     this.parentContainer = document.querySelector(selector);
 
