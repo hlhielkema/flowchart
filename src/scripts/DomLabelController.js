@@ -28,7 +28,10 @@ DomLabelController.prototype.render = function() {
 
     const self = this;
     element.addEventListener('click', function() {
-        self.onLabelSelected();
+        // Labels can only be selected in editor mode
+        if (self.parent.parent.mode === 'editor') {
+            self.onLabelSelected();
+        }
     });
 
     this.element = element;

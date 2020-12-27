@@ -45,17 +45,11 @@
                 width: 100%;  
 
                 .actions {
+                    display: none;
                     top: -50px;
                     left: 35px;
                 }
-            }
-
-            &.selected {
-                border-color:orange;
-                .inner .actions {
-                    display: block;
-                }
-            }
+            }                
         }
 
         .label {
@@ -75,21 +69,26 @@
                 width: 100%;       
                 
                 .actions {
+                    display: none;
                     top: -58px;
                     left: -53px;
                 }
-            }
+            }         
+        }        
+    }    
+}
 
-            &.selected {
-                border-color:orange;
-                .inner .actions {
-                    display: block;
-                }
+/* --- EDITOR MODE --- */
+.flowchart.editor-mode {
+    .node-container {
+        .node.selected, .label.selected {
+            border-color:orange;
+            .inner .actions {
+                display: block;
             }
         }
 
         .actions {
-            display: none;
             text-align: center;
             font-size: 12px;
             position: absolute;
@@ -120,5 +119,48 @@
                 border-top-left-radius: 100px;                    
             }
         }
-    }    
+    }
+}
+
+/* --- SELECT-FOR-LINK MODE --- */
+.flowchart.select-for-link-mode {
+    .node-container {
+        .node.selected {
+            border-color:orange;
+        }
+        .node:not(.selected) {
+            animation: pulse 1.5s infinite;
+        }
+    }
+}
+
+@-webkit-keyframes pulse {
+    0% {
+        -webkit-box-shadow: 0 0 0 0 rgb(0, 155, 219);
+    }
+
+    70% {
+        -webkit-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+    }
+
+    100% {
+        -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        -moz-box-shadow: 0 0 0 0 rgb(0, 155, 219);
+        box-shadow: 0 0 0 0 rgb(0, 155, 219);
+    }
+
+    70% {
+        -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+        box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+    }
+
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+        box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+    }
 }

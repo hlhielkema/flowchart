@@ -40,11 +40,7 @@ flowchart.setNodes([
             {
                 'id': 'd',
                 'label': 'yes'
-            },
-            {
-                'id': 'c',
-                'label': 'no'
-            },        
+            }    
         ]   
     },
     {

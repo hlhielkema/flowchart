@@ -25,7 +25,10 @@ DomNodeController.prototype.render = function() {
     // Start the drag/drop logic on the mouse down event
     const self = this;
     element.addEventListener('mousedown', (e) => {
-        self.startDragDrop(e, element);
+        // Only allow drag/drop in editor mode
+        if (self.parent.parent.mode === 'editor') {
+            self.startDragDrop(e, element);
+        }
     });
 
     this.element = element;
@@ -148,13 +151,20 @@ DomNodeController.prototype.onLinkNode = function onLinkNode() {
 }
 
 DomNodeController.prototype.onNodeSelected = function onNodeSelected() {
-   if (!this.selected) {
-        this.selected = true;
-        this.applySelected();
-        if (this.selected) {
-            this.parent.onNodeSelected(this);
+    if (this.parent.parent.mode === 'editor') {
+        if (!this.selected) {
+            this.selected = true;
+            this.applySelected();
+            if (this.selected) {
+                this.parent.onNodeSelected(this);
+            }
         }
     }
+    else if (this.parent.parent.mode === 'select-for-link') {
+        this.parent.onNodeSelectedForLink(this);
+    }
 }
+
+
 
 export default DomNodeController;

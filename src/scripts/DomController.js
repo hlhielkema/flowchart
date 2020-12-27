@@ -115,6 +115,10 @@ DomController.prototype.onNodeSelected = function onNodeSelected(selectedNode) {
     }
 }
 
+DomController.prototype.onNodeSelectedForLink = function onNodeSelectedForLink(nodeController) {
+    this.parent.onNodeSelectedForLink(nodeController.node);
+}
+
 DomController.prototype.onEditNode = function onEditNode(nodeController) {
     this.parent.onEditNode(nodeController.node);
 }
