@@ -8,6 +8,12 @@ import DomController from './DomController';
 // - Create optimal positions for node relations with one click.
 // - Prevent selecting the text in nodes
 // - Allow setting a start node
+// - Add preview line when linking nodes
+// - Create vue.js component
+// - Redraw canvas on window resize
+// - Support for moving the viewport
+// - Use arrows (instead of only a line)
+
 
 function Flowchart(selector) {
     this.parentContainer = document.querySelector(selector);

@@ -22,33 +22,81 @@ CanvasController.prototype.render = function() {
     // Clear the canvas
     context.clearRect(0, 0, this.canvas.width, this.canvas.height);  
 
-    // Set stroke style
+    // Set stroke and fill style
     context.lineWidth = 2;
     context.strokeStyle = '#e4e4e4';
+    context.fillStyle = '#e4e4e4';
+
+    // Arrow radius option
+    const radius = 8;
 
     // Loop through the nodes
     const nodes = this.parent.nodes;
     for (var i = 0; i < nodes.length; i++)
     {
-        const from = this.getNodeElementCenter(nodes[i]);        
+        const from = this.getNodeElementBottom(nodes[i]);        
         
         for (var t = 0; t < nodes[i].connections.length; t++) {
             const targetNode = this.parent.getNodeForId(nodes[i].connections[t].id);
-            const target = this.getNodeElementCenter(targetNode);
+            const to = this.getNodeElementTop(targetNode);
 
+            // -- Line
             context.beginPath();
             context.moveTo(from.x, from.y);
-            context.lineTo(target.x, target.y);
-            context.stroke();             
+            context.lineTo(to.x, to.y);
+            context.stroke();   
+                  
+            // -- Arrowhead
+
+            // Calculate the angles used to calculate the points of the arrowhead
+            const angle1 = Math.atan2(to.y - from.y, to.x - from.x);
+            const angle2 = angle1 + (1.0/3.0) * (2 * Math.PI)
+            const angle3 = angle1 + (2.0/3.0) * (2 * Math.PI)
+
+            // Calculate the arrowhead center
+            const x_center = to.x - (radius * Math.cos(angle1));
+            const y_center = to.y - (radius * Math.sin(angle1));
+
+            // Calculate the points of the arrowhead
+            const x1 = radius * Math.cos(angle1) + x_center;
+            const y1 = radius * Math.sin(angle1) + y_center;
+            const x2 = radius * Math.cos(angle2) + x_center;
+            const y2 = radius * Math.sin(angle2) + y_center;
+            const x3 = radius *Math.cos(angle3) + x_center;
+            const y3 = radius *Math.sin(angle3) + y_center;
+
+            // Draw the arrowhead
+            context.beginPath();
+            context.moveTo(x1, y1);
+            context.lineTo(x2, y2);
+            context.lineTo(x3, y3);
+            context.closePath();
+            context.fill();
         }        
     }
 }
 
+CanvasController.prototype.getNodeElementBottom = function(node) {
+    return {
+        x: node.x + (NODE_ELEMENT_WIDTH / 2),
+        y: node.y + NODE_ELEMENT_HEIGHT
+    };
+}
+
+CanvasController.prototype.getNodeElementTop = function(node) {
+    return {
+        x: node.x + (NODE_ELEMENT_WIDTH / 2),
+        y: node.y
+    };
+}
+
+/*
 CanvasController.prototype.getNodeElementCenter = function(node) {
     return {
         x: node.x + (NODE_ELEMENT_WIDTH / 2),
         y: node.y + (NODE_ELEMENT_HEIGHT / 2)
     };
 }
+*/
 
 export default CanvasController;
