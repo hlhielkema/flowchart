@@ -104,6 +104,9 @@
                 line-height: 32px;
                 width: 50%;
                 cursor: pointer;
+                &:hover {
+                    font-weight: 600;
+                }
             }
             &::before {
                 content: ' ';
