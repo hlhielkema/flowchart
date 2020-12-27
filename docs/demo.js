@@ -63,5 +63,13 @@ flowchart.setNodes([
         x: 450,
         y: 800,
         connections: [ ]
+    },
+    {
+        id: 'e',
+        title: "Hello world E",
+        description: "Question",
+        x: 800,
+        y: 800,
+        connections: [ ]
     }
 ]);
