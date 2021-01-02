@@ -4,14 +4,11 @@ import DomController from './DomController';
 
 // TODO:
 // - Prevent selecting invalid node links.
-// - Allow users to deselect nodes/labels.
 // - Allow custom handlers for the linking process.
 // - Create optimal positions for node relations with one click.
 // - Allow setting a start node
 // - Add preview line when linking nodes
 // - Create vue.js component
-// - Redraw canvas on window resize
-
 
 function Flowchart(selector) {
     this.parentContainer = document.querySelector(selector);
@@ -156,7 +153,15 @@ Flowchart.prototype.onLinkNode = function onLinkNode(node) {
 }
 
 Flowchart.prototype.onOffsetChanged = function onOffsetChanged() {
+    if (this.mode === 'editor') {
+        // Deselect all nodes and labels
+        this.dom.deselectAll();
+    }
+
+    // Render canvas again
     this.canvas.render();
+
+    // Update positions of DOM elements
     this.dom.updateLabelPositions();
     this.dom.updateNodePositions();
 }

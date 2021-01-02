@@ -122,6 +122,23 @@ DomController.prototype.onNodeSelected = function onNodeSelected(selectedNode) {
     }
 }
 
+// Deselect all nodes and labels
+DomController.prototype.deselectAll = function unselectAll() {
+    // Loop through the nodes    
+    for (var i = 0; i < this.nodeControllers.length; i++) {                    
+        const nodeController = this.nodeControllers[i];
+        nodeController.selected = false;
+        nodeController.applySelected();
+    }
+
+    // Loop through the labels
+    for (var j = 0; j < this.labelControllers.length; j++) {
+        const labelController = this.labelControllers[j];
+        labelController.selected = false;
+        labelController.applySelected();
+    }
+}
+
 DomController.prototype.onNodeSelectedForLink = function onNodeSelectedForLink(nodeController) {
     this.parent.onNodeSelectedForLink(nodeController.node);
 }
