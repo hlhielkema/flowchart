@@ -7,7 +7,6 @@ import DomController from './DomController';
 // - Allow users to deselect nodes/labels.
 // - Allow custom handlers for the linking process.
 // - Create optimal positions for node relations with one click.
-// - Prevent selecting the text in nodes
 // - Allow setting a start node
 // - Add preview line when linking nodes
 // - Create vue.js component
