@@ -165,6 +165,4 @@ DomNodeController.prototype.onNodeSelected = function onNodeSelected() {
     }
 }
 
-
-
 export default DomNodeController;

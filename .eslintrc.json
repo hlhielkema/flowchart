@@ -1,0 +1,19 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true
+    },
+    "extends": [
+        "airbnb-base"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 11,
+        "sourceType": "module"
+    },
+    "rules": {        
+        "linebreak-style": ["error", "windows"],
+        "indent": ["error", 4],
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true}],
+        "brace-style": ["error", "stroustrup"]
+    }
+}
