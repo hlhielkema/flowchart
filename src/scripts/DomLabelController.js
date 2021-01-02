@@ -23,8 +23,8 @@ DomLabelController.prototype.render = function() {
     const position = this.getLineCenter();
 
     // Set initial position
-    element.style.top = position.y + 'px';
-    element.style.left = position.x + 'px';
+    element.style.top = (position.y + this.parent.parent.offset.y) + 'px';
+    element.style.left = (position.x + this.parent.parent.offset.x) + 'px';
 
     const self = this;
     element.addEventListener('click', function() {
@@ -65,8 +65,8 @@ DomLabelController.prototype.renderActions = function() {
 DomLabelController.prototype.updatePosition = function() {
     var position = this.getLineCenter();
 
-    this.element.style.top = position.y + 'px';
-    this.element.style.left = position.x + 'px';
+    this.element.style.top = position.y + this.parent.parent.offset.y + 'px';
+    this.element.style.left = position.x + this.parent.parent.offset.x + 'px';
 }
 
 DomLabelController.prototype.getLineCenter = function() {

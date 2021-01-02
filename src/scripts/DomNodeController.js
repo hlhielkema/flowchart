@@ -19,8 +19,8 @@ DomNodeController.prototype.render = function() {
     innerElement.appendChild(this.renderInfo());
 
     // Set initial position
-    element.style.top = this.node.y + 'px';
-    element.style.left = this.node.x + 'px';
+    element.style.top = (this.node.y + this.parent.parent.offset.y) + 'px';
+    element.style.left = (this.node.x + this.parent.parent.offset.x) + 'px';
     
     // Start the drag/drop logic on the mouse down event
     const self = this;
@@ -89,8 +89,8 @@ DomNodeController.prototype.renderActions = function() {
 // Apply the position on the element
 DomNodeController.prototype.applyPosition = function applyPosition() {
     // Set the position properties
-    this.element.style.top = `${this.node.y}px`;
-    this.element.style.left = `${this.node.x}px`;
+    this.element.style.top = `${this.node.y + this.parent.parent.offset.y}px`;
+    this.element.style.left = `${this.node.x + this.parent.parent.offset.x}px`;
 
     // Signal to the parent DOM controller that the position of a node changed
     this.parent.onNodePositionChanged();
@@ -113,7 +113,7 @@ DomNodeController.prototype.startDragDrop = function startDragDrop(e) {
     const self = this;
     this.parent.dragDropEngine.start(e, {
         init(session) {
-            // Store the initial tile position
+            // Store the initial node position
             session.setInitialPosition(self.node.x, self.node.y);  
             
             // Ensure that the node is selected

@@ -1,3 +1,4 @@
+import MouseDragDropTracker from './util/MouseDragDropTracker';
 import CanvasController from './CanvasController';
 import DomController from './DomController';
 
@@ -11,8 +12,6 @@ import DomController from './DomController';
 // - Add preview line when linking nodes
 // - Create vue.js component
 // - Redraw canvas on window resize
-// - Support for moving the viewport
-// - Use arrows (instead of only a line)
 
 
 function Flowchart(selector) {
@@ -23,11 +22,14 @@ function Flowchart(selector) {
     this.container.classList.add('editor-mode');
     this.parentContainer.appendChild(this.container);
 
+    this.dragDropEngine = new MouseDragDropTracker();
+
+    this.offset = { x: 0, y:0 };
     this.nodes = [];
     this.canvas = new CanvasController(this);
     this.dom = new DomController(this);
     this.mode = 'editor'; // editor | view | select-for-link
-    this.linkFrom = null;
+    this.linkFrom = null;    
 
     // Handlers
     this.editNodeHandler = null; // function(node : object)
@@ -152,6 +154,12 @@ Flowchart.prototype.onEditNode = function onEditNode(node) {
 Flowchart.prototype.onLinkNode = function onLinkNode(node) {
     this.linkFrom = node;
     this.setMode('select-for-link');
+}
+
+Flowchart.prototype.onOffsetChanged = function onOffsetChanged() {
+    this.canvas.render();
+    this.dom.updateLabelPositions();
+    this.dom.updateNodePositions();
 }
 
 Flowchart.prototype.setEditNodeHandler = function setEditNodeHandler(handler) {

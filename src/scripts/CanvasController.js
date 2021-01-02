@@ -1,3 +1,4 @@
+import MouseDragDropTracker from './util/MouseDragDropTracker';
 import { NODE_ELEMENT_HEIGHT, NODE_ELEMENT_WIDTH } from './Constants';
 
 function CanvasController(parent) {
@@ -10,6 +11,12 @@ CanvasController.prototype.init = function() {
     this.canvas = document.createElement('canvas');
     this.context = this.canvas.getContext("2d");
     this.parent.container.appendChild(this.canvas);
+
+    // Start the drag/drop logic on the mouse down event
+    const self = this;
+    this.canvas.addEventListener('mousedown', (e) => {
+        self.startDragDrop(e, self.canvas);
+    });
 }
 
 CanvasController.prototype.render = function() {
@@ -76,17 +83,37 @@ CanvasController.prototype.render = function() {
     }
 }
 
+
+// Start the drag/drop logic(from mousedown event)
+CanvasController.prototype.startDragDrop = function startDragDrop(e) {
+    const self = this;
+    this.parent.dragDropEngine.start(e, {
+        init(session) {            
+            // Store the initial offset
+            session.setInitialPosition(self.parent.offset.x, self.parent.offset.y);          
+        },
+        transform(session, dx, dy, x, y, first, completed) {
+            // Update the offset    
+            self.parent.offset.x = session.initialX + dx;
+            self.parent.offset.y = session.initialY + dy;
+
+            // Call onOffsetChanged to update the positions of the elements and render the lines again
+            self.parent.onOffsetChanged();
+        },
+    });
+};
+
 CanvasController.prototype.getNodeElementBottom = function(node) {
     return {
-        x: node.x + (NODE_ELEMENT_WIDTH / 2),
-        y: node.y + NODE_ELEMENT_HEIGHT
+        x: node.x + (NODE_ELEMENT_WIDTH / 2) + + this.parent.offset.x,
+        y: node.y + NODE_ELEMENT_HEIGHT + this.parent.offset.y
     };
 }
 
 CanvasController.prototype.getNodeElementTop = function(node) {
     return {
-        x: node.x + (NODE_ELEMENT_WIDTH / 2),
-        y: node.y
+        x: node.x + (NODE_ELEMENT_WIDTH / 2) + this.parent.offset.x,
+        y: node.y + this.parent.offset.y
     };
 }
 

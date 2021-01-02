@@ -1,4 +1,3 @@
-import MouseDragDropTracker from './util/MouseDragDropTracker';
 import DomNodeController from './DomNodeController';
 import DomLabelController from './DomLabelController';
 
@@ -7,7 +6,7 @@ function DomController(parent) {
     this.nodeControllers = null;
     this.labelControllers = null;
     this.container = null;
-    this.dragDropEngine = new MouseDragDropTracker();
+    this.dragDropEngine = parent.dragDropEngine;    
 }
 
 DomController.prototype.init = function() {
@@ -71,6 +70,14 @@ DomController.prototype.updateLabelPositions = function() {
     for (var i = 0; i < this.labelControllers.length; i++) {                    
         // Update the position
         this.labelControllers[i].updatePosition();
+    }
+}
+
+DomController.prototype.updateNodePositions = function() {
+    // Loop through the nodes    
+    for (var i = 0; i < this.nodeControllers.length; i++) {                    
+        // Update the position
+        this.nodeControllers[i].applyPosition();
     }
 }
 
