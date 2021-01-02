@@ -17,6 +17,10 @@ CanvasController.prototype.init = function() {
     this.canvas.addEventListener('mousedown', (e) => {
         self.startDragDrop(e, self.canvas);
     });
+
+    window.addEventListener('resize', function() {
+        self.render();
+    });
 }
 
 CanvasController.prototype.render = function() {
