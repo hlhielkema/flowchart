@@ -5,10 +5,10 @@ function DomNodeController(parent, node) {
     this.selected = false;
 }
 
-DomNodeController.prototype.render = function() {
+DomNodeController.prototype.render = function () {
     const element = document.createElement('div');
     element.classList.add('node');
-    
+
     const innerElement = document.createElement('div');
     innerElement.classList.add('inner');
     element.appendChild(innerElement);
@@ -19,9 +19,9 @@ DomNodeController.prototype.render = function() {
     innerElement.appendChild(this.renderInfo());
 
     // Set initial position
-    element.style.top = (this.node.y + this.parent.parent.offset.y) + 'px';
-    element.style.left = (this.node.x + this.parent.parent.offset.x) + 'px';
-    
+    element.style.top = `${this.node.y + this.parent.parent.offset.y}px`;
+    element.style.left = `${this.node.x + this.parent.parent.offset.x}px`;
+
     // Start the drag/drop logic on the mouse down event
     const self = this;
     element.addEventListener('mousedown', (e) => {
@@ -33,9 +33,9 @@ DomNodeController.prototype.render = function() {
 
     this.element = element;
     return element;
-}
+};
 
-DomNodeController.prototype.renderInfo = function() {
+DomNodeController.prototype.renderInfo = function () {
     // Create elements
     const element = document.createElement('div');
     const titleElement = document.createElement('div');
@@ -55,36 +55,36 @@ DomNodeController.prototype.renderInfo = function() {
     descriptionElement.innerText = this.node.description;
 
     const self = this;
-    element.addEventListener('click', function() {
+    element.addEventListener('click', () => {
         self.onNodeSelected();
     });
 
     return element;
-}
+};
 
-DomNodeController.prototype.renderActions = function() {
-    const actionsElement = document.createElement('div');        
+DomNodeController.prototype.renderActions = function () {
+    const actionsElement = document.createElement('div');
     const editElement = document.createElement('div');
     const linkElement = document.createElement('div');
 
     actionsElement.classList.add('actions');
 
-    editElement.innerText = 'Edit';    
+    editElement.innerText = 'Edit';
     linkElement.innerText = 'Link';
-    
+
     actionsElement.appendChild(editElement);
     actionsElement.appendChild(linkElement);
 
     const self = this;
-    editElement.addEventListener('click', function() {
+    editElement.addEventListener('click', () => {
         self.onEditNode();
     });
-    linkElement.addEventListener('click', function() {
+    linkElement.addEventListener('click', () => {
         self.onLinkNode();
     });
 
     return actionsElement;
-}
+};
 
 // Apply the position on the element
 DomNodeController.prototype.applyPosition = function applyPosition() {
@@ -97,7 +97,7 @@ DomNodeController.prototype.applyPosition = function applyPosition() {
 };
 
 DomNodeController.prototype.applySelected = function applySelected() {
-    var hasClass = this.element.classList.contains('selected');
+    const hasClass = this.element.classList.contains('selected');
     if (hasClass != this.selected) {
         if (this.selected) {
             this.element.classList.add('selected');
@@ -106,7 +106,7 @@ DomNodeController.prototype.applySelected = function applySelected() {
             this.element.classList.remove('selected');
         }
     }
-}
+};
 
 // Start the drag/drop logic(from mousedown event)
 DomNodeController.prototype.startDragDrop = function startDragDrop(e) {
@@ -114,8 +114,8 @@ DomNodeController.prototype.startDragDrop = function startDragDrop(e) {
     this.parent.dragDropEngine.start(e, {
         init(session) {
             // Store the initial node position
-            session.setInitialPosition(self.node.x, self.node.y);  
-            
+            session.setInitialPosition(self.node.x, self.node.y);
+
             // Ensure that the node is selected
             self.onNodeSelected();
         },
@@ -133,22 +133,22 @@ DomNodeController.prototype.startDragDrop = function startDragDrop(e) {
             self.node.y = session.initialY + dy;
 
             // Apply the new position
-            self.applyPosition();           
+            self.applyPosition();
         },
     });
 };
 
 DomNodeController.prototype.getNodeId = function getNodeId() {
     return this.node.id;
-}
+};
 
 DomNodeController.prototype.onEditNode = function onEditNode() {
     this.parent.onEditNode(this);
-}
+};
 
 DomNodeController.prototype.onLinkNode = function onLinkNode() {
     this.parent.onLinkNode(this);
-}
+};
 
 DomNodeController.prototype.onNodeSelected = function onNodeSelected() {
     if (this.parent.parent.mode === 'editor') {
@@ -163,6 +163,6 @@ DomNodeController.prototype.onNodeSelected = function onNodeSelected() {
     else if (this.parent.parent.mode === 'select-for-link') {
         this.parent.onNodeSelectedForLink(this);
     }
-}
+};
 
 export default DomNodeController;
