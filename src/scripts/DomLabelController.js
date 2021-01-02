@@ -11,7 +11,7 @@ function DomLabelController(parent, from, to, label) {
     this.selected = false;
 }
 
-DomLabelController.prototype.render = function () {
+DomLabelController.prototype.render = function render() {
     const element = document.createElement('div');
     element.classList.add('label');
 
@@ -40,7 +40,7 @@ DomLabelController.prototype.render = function () {
     return element;
 };
 
-DomLabelController.prototype.renderActions = function () {
+DomLabelController.prototype.renderActions = function renderActions() {
     const actionsElement = document.createElement('div');
     const renameElement = document.createElement('div');
     const removeElement = document.createElement('div');
@@ -64,14 +64,14 @@ DomLabelController.prototype.renderActions = function () {
     return actionsElement;
 };
 
-DomLabelController.prototype.updatePosition = function () {
+DomLabelController.prototype.updatePosition = function updatePosition() {
     const position = this.getLineCenter();
 
     this.element.style.top = `${position.y + this.parent.parent.offset.y}px`;
     this.element.style.left = `${position.x + this.parent.parent.offset.x}px`;
 };
 
-DomLabelController.prototype.getLineCenter = function () {
+DomLabelController.prototype.getLineCenter = function getLineCenter() {
     return {
         x: (this.from.x + this.to.x) / 2 + (NODE_ELEMENT_WIDTH / 2) - (LABEL_ELEMENT_WIDTH / 2),
         y: (this.from.y + this.to.y) / 2 + (NODE_ELEMENT_HEIGHT / 2) - (LABEL_ELEMENT_HEIGHT / 2),
@@ -80,7 +80,7 @@ DomLabelController.prototype.getLineCenter = function () {
 
 DomLabelController.prototype.applySelected = function applySelected() {
     const hasClass = this.element.classList.contains('selected');
-    if (hasClass != this.selected) {
+    if (hasClass !== this.selected) {
         if (this.selected) {
             this.element.classList.add('selected');
         }

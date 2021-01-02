@@ -1,4 +1,3 @@
-import MouseDragDropTracker from './util/MouseDragDropTracker';
 import { NODE_ELEMENT_HEIGHT, NODE_ELEMENT_WIDTH } from './Constants';
 
 function CanvasController(parent) {
@@ -7,7 +6,7 @@ function CanvasController(parent) {
     this.context = null;
 }
 
-CanvasController.prototype.init = function () {
+CanvasController.prototype.init = function init() {
     this.canvas = document.createElement('canvas');
     this.context = this.canvas.getContext('2d');
     this.parent.container.appendChild(this.canvas);
@@ -23,7 +22,7 @@ CanvasController.prototype.init = function () {
     });
 };
 
-CanvasController.prototype.render = function () {
+CanvasController.prototype.render = function render() {
     const { context } = this;
 
     // Set height and width
@@ -64,16 +63,16 @@ CanvasController.prototype.render = function () {
             const angle3 = angle1 + (2.0 / 3.0) * (2 * Math.PI);
 
             // Calculate the arrowhead center
-            const x_center = to.x - (radius * Math.cos(angle1));
-            const y_center = to.y - (radius * Math.sin(angle1));
+            const xCenter = to.x - (radius * Math.cos(angle1));
+            const yCenter = to.y - (radius * Math.sin(angle1));
 
             // Calculate the points of the arrowhead
-            const x1 = radius * Math.cos(angle1) + x_center;
-            const y1 = radius * Math.sin(angle1) + y_center;
-            const x2 = radius * Math.cos(angle2) + x_center;
-            const y2 = radius * Math.sin(angle2) + y_center;
-            const x3 = radius * Math.cos(angle3) + x_center;
-            const y3 = radius * Math.sin(angle3) + y_center;
+            const x1 = radius * Math.cos(angle1) + xCenter;
+            const y1 = radius * Math.sin(angle1) + yCenter;
+            const x2 = radius * Math.cos(angle2) + xCenter;
+            const y2 = radius * Math.sin(angle2) + yCenter;
+            const x3 = radius * Math.cos(angle3) + xCenter;
+            const y3 = radius * Math.sin(angle3) + yCenter;
 
             // Draw the arrowhead
             context.beginPath();
@@ -94,25 +93,26 @@ CanvasController.prototype.startDragDrop = function startDragDrop(e) {
             // Store the initial offset
             session.setInitialPosition(self.parent.offset.x, self.parent.offset.y);
         },
-        transform(session, dx, dy, x, y, first, completed) {
+        transform(session, dx, dy) {
             // Update the offset
             self.parent.offset.x = session.initialX + dx;
             self.parent.offset.y = session.initialY + dy;
 
-            // Call onOffsetChanged to update the positions of the elements and render the lines again
+            // Call onOffsetChanged to update the positions of the
+            // elements and render the lines again.
             self.parent.onOffsetChanged();
         },
     });
 };
 
-CanvasController.prototype.getNodeElementBottom = function (node) {
+CanvasController.prototype.getNodeElementBottom = function getNodeElementBottom(node) {
     return {
         x: node.x + (NODE_ELEMENT_WIDTH / 2) + +this.parent.offset.x,
         y: node.y + NODE_ELEMENT_HEIGHT + this.parent.offset.y,
     };
 };
 
-CanvasController.prototype.getNodeElementTop = function (node) {
+CanvasController.prototype.getNodeElementTop = function getNodeElementTop(node) {
     return {
         x: node.x + (NODE_ELEMENT_WIDTH / 2) + this.parent.offset.x,
         y: node.y + this.parent.offset.y,

@@ -9,13 +9,13 @@ function DomController(parent) {
     this.dragDropEngine = parent.dragDropEngine;
 }
 
-DomController.prototype.init = function () {
+DomController.prototype.init = function init() {
     this.container = document.createElement('div');
     this.container.classList.add('node-container');
     this.parent.container.appendChild(this.container);
 };
 
-DomController.prototype.createNodeControllers = function () {
+DomController.prototype.createNodeControllers = function createNodeControllers() {
     this.nodeControllers = [];
     const { nodes } = this.parent;
     for (let i = 0; i < nodes.length; i++) {
@@ -24,7 +24,7 @@ DomController.prototype.createNodeControllers = function () {
     }
 };
 
-DomController.prototype.createLabelControllers = function () {
+DomController.prototype.createLabelControllers = function createLabelControllers() {
     this.labelControllers = [];
     const { nodes } = this.parent;
     for (let i = 0; i < nodes.length; i++) {
@@ -38,7 +38,7 @@ DomController.prototype.createLabelControllers = function () {
     }
 };
 
-DomController.prototype.render = function () {
+DomController.prototype.render = function render() {
     // Clear container content
     this.container.innerHTML = '';
 
@@ -47,7 +47,7 @@ DomController.prototype.render = function () {
     this.createLabelControllers();
 
     // Loop through the nodes
-    for (var i = 0; i < this.nodeControllers.length; i++) {
+    for (let i = 0; i < this.nodeControllers.length; i++) {
         // Render the node element
         const nodeElement = this.nodeControllers[i].render();
 
@@ -56,16 +56,16 @@ DomController.prototype.render = function () {
     }
 
     // Loop through the labels
-    for (var i = 0; i < this.labelControllers.length; i++) {
+    for (let j = 0; j < this.labelControllers.length; j++) {
         // Render the label element
-        const labelElement = this.labelControllers[i].render();
+        const labelElement = this.labelControllers[j].render();
 
         // Add the label element to the container
         this.container.appendChild(labelElement);
     }
 };
 
-DomController.prototype.updateLabelPositions = function () {
+DomController.prototype.updateLabelPositions = function updateLabelPositions() {
     // Loop through the labels
     for (let i = 0; i < this.labelControllers.length; i++) {
         // Update the position
@@ -73,7 +73,7 @@ DomController.prototype.updateLabelPositions = function () {
     }
 };
 
-DomController.prototype.updateNodePositions = function () {
+DomController.prototype.updateNodePositions = function updateNodePositions() {
     // Loop through the nodes
     for (let i = 0; i < this.nodeControllers.length; i++) {
         // Update the position
@@ -81,7 +81,7 @@ DomController.prototype.updateNodePositions = function () {
     }
 };
 
-DomController.prototype.onNodePositionChanged = function () {
+DomController.prototype.onNodePositionChanged = function onNodePositionChanged() {
     this.updateLabelPositions();
     this.parent.onNodePositionChanged();
 };

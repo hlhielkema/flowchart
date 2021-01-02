@@ -5,7 +5,7 @@ function DomNodeController(parent, node) {
     this.selected = false;
 }
 
-DomNodeController.prototype.render = function () {
+DomNodeController.prototype.render = function render() {
     const element = document.createElement('div');
     element.classList.add('node');
 
@@ -35,7 +35,7 @@ DomNodeController.prototype.render = function () {
     return element;
 };
 
-DomNodeController.prototype.renderInfo = function () {
+DomNodeController.prototype.renderInfo = function renderInfo() {
     // Create elements
     const element = document.createElement('div');
     const titleElement = document.createElement('div');
@@ -62,7 +62,7 @@ DomNodeController.prototype.renderInfo = function () {
     return element;
 };
 
-DomNodeController.prototype.renderActions = function () {
+DomNodeController.prototype.renderActions = function renderActions() {
     const actionsElement = document.createElement('div');
     const editElement = document.createElement('div');
     const linkElement = document.createElement('div');
@@ -98,7 +98,7 @@ DomNodeController.prototype.applyPosition = function applyPosition() {
 
 DomNodeController.prototype.applySelected = function applySelected() {
     const hasClass = this.element.classList.contains('selected');
-    if (hasClass != this.selected) {
+    if (hasClass !== this.selected) {
         if (this.selected) {
             this.element.classList.add('selected');
         }
@@ -119,7 +119,7 @@ DomNodeController.prototype.startDragDrop = function startDragDrop(e) {
             // Ensure that the node is selected
             self.onNodeSelected();
         },
-        transform(session, dx, dy, x, y, first, completed) {
+        transform(session, dx, dy, x, y, first) {
             // First transform
             if (first) {
                 // Make sure that the movement animation is disabled

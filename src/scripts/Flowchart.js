@@ -29,7 +29,10 @@ function Flowchart(selector) {
 
     // Handlers
     this.editNodeHandler = null; // function(node : object)
-    this.renameLabelHandler = null; // function(currentName : string, rename : function(name : string)) { ... };
+
+    // Handler function invoked when requesting renaming a label.
+    // function(currentName : string, rename : function(name : string)) { ... };
+    this.renameLabelHandler = null;
 
     // Init
     this.canvas.init();
@@ -53,7 +56,7 @@ Flowchart.prototype.getNodes = function getNodes() {
 Flowchart.prototype.setMode = function setMode(mode) {
     const availableModes = ['editor', 'view', 'select-for-link'];
     if (availableModes.indexOf(mode) === -1) {
-        throw 'Invalid mode name';
+        throw Error('Invalid mode name');
     }
 
     if (this.mode !== mode) {
@@ -72,7 +75,7 @@ Flowchart.prototype.setMode = function setMode(mode) {
     }
 };
 
-Flowchart.prototype.onNodePositionChanged = function () {
+Flowchart.prototype.onNodePositionChanged = function onNodePositionChanged() {
     this.canvas.render();
 };
 
@@ -84,7 +87,7 @@ Flowchart.prototype.onRenameLabel = function onRenameLabel(from, to) {
         }
     }
     if (connection === null) {
-        throw 'Connection not found';
+        throw new Error('Connection not found');
     }
 
     const self = this;
@@ -96,7 +99,7 @@ Flowchart.prototype.onRenameLabel = function onRenameLabel(from, to) {
     });
 };
 
-Flowchart.prototype.onRemoveConnection = function (from, to) {
+Flowchart.prototype.onRemoveConnection = function onRemoveConnection(from, to) {
     for (let i = 0; i < from.connections.length; i++) {
         if (from.connections[i].id === to.id) {
             from.connections.splice(i, 1);
@@ -107,7 +110,7 @@ Flowchart.prototype.onRemoveConnection = function (from, to) {
 };
 
 Flowchart.prototype.onNodeSelectedForLink = function onNodeSelectedForLink(node) {
-    let canLink = this.mode === 'select-for-link' && this.linkFrom !== null && this.linkFrom != node;
+    let canLink = this.mode === 'select-for-link' && this.linkFrom !== null && this.linkFrom !== node;
 
     if (canLink) {
         for (let i = 0; i < this.linkFrom.connections.length; i++) {
@@ -174,7 +177,7 @@ Flowchart.prototype.setRenameLabelHandler = function setRenameLabelHandler(handl
     this.renameLabelHandler = handler;
 };
 
-Flowchart.prototype.getNodeForId = function (id) {
+Flowchart.prototype.getNodeForId = function getNodeForId(id) {
     for (let i = 0; i < this.nodes.length; i++) {
         if (this.nodes[i].id === id) {
             return this.nodes[i];
