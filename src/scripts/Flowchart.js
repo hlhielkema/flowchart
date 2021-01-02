@@ -2,14 +2,7 @@ import MouseDragDropTracker from './util/MouseDragDropTracker';
 import CanvasController from './CanvasController';
 import DomController from './DomController';
 
-// TODO:
-// - Prevent selecting invalid node links.
-// - Allow custom handlers for the linking process.
-// - Create optimal positions for node relations with one click.
-// - Allow setting a start node
-// - Add preview line when linking nodes
-// - Create vue.js component
-
+// constructor
 function Flowchart(selector) {
     this.parentContainer = document.querySelector(selector);
 
