@@ -2,6 +2,8 @@
 
 Open the [LIVE DEMO](https://hlhielkema.github.io/flowchart/) to try it yourself.
 
+![screenshot](media/screenshot.png)
+
 ## Directory structure
 
 - dist - *compiled library js and css*
